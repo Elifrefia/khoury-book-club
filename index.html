@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khoury Book Club 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .poster {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="books" patternUnits="userSpaceOnUse" width="20" height="20"><rect width="20" height="20" fill="none"/><rect x="2" y="8" width="3" height="10" fill="rgba(255,255,255,0.1)"/><rect x="6" y="6" width="3" height="12" fill="rgba(255,255,255,0.1)"/><rect x="10" y="7" width="3" height="11" fill="rgba(255,255,255,0.1)"/><rect x="14" y="5" width="3" height="13" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23books)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .grid-container {
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .month-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #667eea;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .month-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .month-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .month-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .month-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .theme-title {
+            font-size: 1.2rem;
+            color: #34495e;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .theme-desc {
+            font-size: 0.95rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .book-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #667eea;
+        }
+
+        .book-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .book-author {
+            font-size: 0.95rem;
+            color: #5d6d7e;
+            margin-bottom: 8px;
+        }
+
+        .book-desc {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .book-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .book-link:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .footer strong {
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header h2 {
+                font-size: 1.4rem;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            
+            .month-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="header">
+            <h1>Khoury Book Club</h1>
+            <h2>2025 Reading Journey</h2>
+        </div>
+
+        <div class="grid-container">
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">08</div>
+                    August 2025
+                </div>
+                <div class="theme-title">New Beginnings & Fresh Starts</div>
+                <div class="theme-desc">Stories about transformation, second chances, and starting over</div>
+                <div class="book-info">
+                    <div class="book-title">The History of a Difficult Child</div>
+                    <div class="book-author">by Mihret Sibhat</div>
+                    <div class="book-desc">A breathtaking debut about growing up in post-revolutionary Ethiopia</div>
+                    <a href="https://www.goodreads.com/book/show/58724923-the-history-of-a-difficult-child" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">09</div>
+                    September 2025
+                </div>
+                <div class="theme-title">Mysteries & Secrets</div>
+                <div class="theme-desc">Psychological thrillers, cozy mysteries, and books with hidden truths</div>
+                <div class="book-info">
+                    <div class="book-title">Elena Knows</div>
+                    <div class="book-author">by Claudia Piñeiro</div>
+                    <div class="book-desc">A devastating critique wrapped in a mystery as Elena searches for truth in Buenos Aires</div>
+                    <a href="https://www.goodreads.com/book/show/57693516-elena-knows" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">10</div>
+                    October 2025
+                </div>
+                <div class="theme-title">Global Perspectives</div>
+                <div class="theme-desc">Stories from different cultures, international authors, and diverse voices</div>
+                <div class="book-info">
+                    <div class="book-title">We Do Not Part</div>
+                    <div class="book-author">by Han Kang</div>
+                    <div class="book-desc">From the Nobel Prize winner, exploring female friendship and hidden Korean history</div>
+                    <a href="https://www.goodreads.com/book/show/125050442-we-do-not-part" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">11</div>
+                    November 2025
+                </div>
+                <div class="theme-title">Gratitude & Reflection</div>
+                <div class="theme-desc">Memoirs, philosophical works, and books about finding meaning</div>
+                <div class="book-info">
+                    <div class="book-title">Swimming in Paris</div>
+                    <div class="book-author">by Colombe Schneck</div>
+                    <div class="book-desc">A woman's personal journey through life's messy realities - raw and deeply human</div>
+                    <a href="https://www.goodreads.com/book/show/61215542-swimming-in-paris" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">12</div>
+                    December 2025
+                </div>
+                <div class="theme-title">Holiday Magic & Nostalgia</div>
+                <div class="theme-desc">Feel-good stories, holiday tales, and books that warm the heart</div>
+                <div class="book-info">
+                    <div class="book-title">The Marigold Mind Laundry</div>
+                    <div class="book-author">by Jungeun Yun</div>
+                    <div class="book-desc">A magical laundromat that washes away painful memories - a Korean bestseller</div>
+                    <a href="https://www.goodreads.com/book/show/125050433-the-marigold-mind-laundry" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">01</div>
+                    January 2026
+                </div>
+                <div class="theme-title">Time & Memory</div>
+                <div class="theme-desc">Historical fiction, time travel, and stories spanning generations</div>
+                <div class="book-info">
+                    <div class="book-title">Train Dreams</div>
+                    <div class="book-author">by Denis Johnson</div>
+                    <div class="book-desc">An epic in miniature about an ordinary man in extraordinary times in the American West</div>
+                    <a href="https://www.goodreads.com/book/show/11905703-train-dreams" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">02</div>
+                    February 2026
+                </div>
+                <div class="theme-title">Love in All Its Forms</div>
+                <div class="theme-desc">Romance, family bonds, friendships, and different types of love</div>
+                <div class="book-info">
+                    <div class="book-title">Don't Be a Stranger</div>
+                    <div class="book-author">by Susan Minot</div>
+                    <div class="book-desc">A luminous novel about erotic obsession and the hunger for intimacy at midlife</div>
+                    <a href="https://www.goodreads.com/book/show/89747156-don-t-be-a-stranger" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">03</div>
+                    March 2026
+                </div>
+                <div class="theme-title">Women's Stories & Voices</div>
+                <div class="theme-desc">Female protagonists, women's history, and feminist literature</div>
+                <div class="book-info">
+                    <div class="book-title">Bright I Burn</div>
+                    <div class="book-author">by Molly Aitken</div>
+                    <div class="book-desc">A fierce novel inspired by the first woman condemned as a witch in Ireland</div>
+                    <a href="https://www.goodreads.com/book/show/125050445-bright-i-burn" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">04</div>
+                    April 2026
+                </div>
+                <div class="theme-title">Growth & Nature</div>
+                <div class="theme-desc">Environmental themes, gardening, and connection with the natural world</div>
+                <div class="book-info">
+                    <div class="book-title">The Driveway Has Two Sides</div>
+                    <div class="book-author">by Sara Marchant</div>
+                    <div class="book-desc">A captivating tale set on a one-village island, exploring how a stranger changes everything</div>
+                    <a href="https://www.goodreads.com/book/show/52379423-the-driveway-has-two-sides" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">05</div>
+                    May 2026
+                </div>
+                <div class="theme-title">Adventure & Discovery</div>
+                <div class="theme-desc">Travel narratives, exploration, and journeys of self-discovery</div>
+                <div class="book-info">
+                    <div class="book-title">What We Devour</div>
+                    <div class="book-author">by Linsey Miller</div>
+                    <div class="book-desc">A dark fantasy about hunger, power, and what we're willing to sacrifice</div>
+                    <a href="https://www.goodreads.com/book/show/52379436-what-we-devour" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">06</div>
+                    June 2026
+                </div>
+                <div class="theme-title">Family & Belonging</div>
+                <div class="theme-desc">Family dynamics, generational stories, and finding where you belong</div>
+                <div class="book-info">
+                    <div class="book-title">The Forgotten Symphony</div>
+                    <div class="book-author">by multiple authors</div>
+                    <div class="book-desc">A poignant debut exploring the healing power of music and unbreakable friendship bonds</div>
+                    <a href="https://www.goodreads.com/book/show/125050448-the-forgotten-symphony" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+
+            <div class="month-card">
+                <div class="month-title">
+                    <div class="month-number">07</div>
+                    July 2026
+                </div>
+                <div class="theme-title">Freedom & Independence</div>
+                <div class="theme-desc">Stories about breaking free, independence, and social justice</div>
+                <div class="book-info">
+                    <div class="book-title">The Vegetarian</div>
+                    <div class="book-author">by Han Kang</div>
+                    <div class="book-desc">A florid, compact novel about a woman's rejection of conformity and its brutal consequences</div>
+                    <a href="https://www.goodreads.com/book/show/25489025-the-vegetarian" class="book-link" target="_blank">View on Goodreads</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <strong>Remember:</strong> These are recommendations - feel free to choose any book that fits the monthly theme!<br>
+            Come ready to share your book choice, insights, and questions for discussion.
+        </div>
+    </div>
+</body>
+</html>
